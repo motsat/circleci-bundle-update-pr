@@ -10,9 +10,7 @@ module Circleci
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
           raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
           raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
-p "need?"
           return unless need?(git_branches)
-p "need!!"
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
           now = Time.now
           branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
@@ -61,9 +59,8 @@ p ENV['CIRCLE_BRANCH']
 
         def self.add_comment_of_compare_linker(repo_full_name, pr_number)
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
-          require 'pry'
-          binding.pry
-          compare_linker.octokit = client
+          compare_linker.octokit = default_client
+          compare_linker.enterprise_octokit = enterprise_client if enterprise_client
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
           comment = <<-EOC
