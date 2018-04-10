@@ -79,8 +79,6 @@ p ENV['CIRCLE_BRANCH']
 
         def self.add_comment_of_compare_linker(repo_full_name, pr_number)
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
-          compare_linker.octokit = default_client
-          compare_linker.enterprise_octokit = enterprise_client if enterprise_client
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
           comment = <<-EOC
