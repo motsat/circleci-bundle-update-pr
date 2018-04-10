@@ -115,8 +115,10 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
         def self.github_host
           # A format like git@github.com:masutaka/compare_linker.git
           return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?)[/:]}
+          p 'CIRCLE_REPOSITORY_URL regexp 1 skip' 
           # A format like https://github.com/Linuxbrew/homebrew-extra.git
           return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
+          p 'CIRCLE_REPOSITORY_URL regexp 2 skip' 
           'github.com'
         end
 
