@@ -78,6 +78,9 @@ p ENV['CIRCLE_BRANCH']
         private_class_method :create_pull_request
 
         def self.add_comment_of_compare_linker(repo_full_name, pr_number)
+          ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
+          ENV["ENTERPRISE_OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ENTERPRISE_ACCESS_TOKEN"]
+          ENV["ENTERPRISE_OCTOKIT_API_ENDPOINT"] = ENV["GITHUB_ENTERPRISE_API_ENDPOINT"]
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
