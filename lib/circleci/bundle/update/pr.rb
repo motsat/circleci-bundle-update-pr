@@ -59,6 +59,8 @@ p ENV['CIRCLE_BRANCH']
 
         def self.create_branch(git_username, git_email, branch, repo_full_name)
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
+          p "remote:"
+          p remote
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name #{git_username}")
           system("git config user.email #{git_email}")
